@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import ButtonTesting from './components/ButtonTesting';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a>  
+          <ButtonTesting></ButtonTesting>
       </header>
     </div>
   );
