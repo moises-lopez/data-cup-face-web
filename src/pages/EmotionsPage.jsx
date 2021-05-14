@@ -13,7 +13,6 @@ const EmotionsPage = () => {
     const frameFromWebcam = await getFrameFromWebcam();
 
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
-    console.log(myFaceInfoFromFrame);
 
     if (myFaceInfoFromFrame.faceAttributes) {
       console.log(myFaceInfoFromFrame);
