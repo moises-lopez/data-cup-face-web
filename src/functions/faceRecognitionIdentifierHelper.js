@@ -1,7 +1,25 @@
-async function DetectFaceRecognize(blob) {
-  // Detect faces from image blob. Since only recognizing, use the recognition model 4.
+const key = "b900d6028af8412dac48b5f16f7d7c2b";
+const endpoint = "https://instanciaface.cognitiveservices.azure.com/";
+const axios = require("axios");
+
+const msRest = require("@azure/ms-rest-js");
+const Face = require("@azure/cognitiveservices-face");
+
+const credentials = new msRest.ApiKeyCredentials({
+  inHeader: { "Ocp-Apim-Subscription-Key": key },
+});
+const client = new Face.FaceClient(credentials, endpoint);
+
+const person_group_id = "my_group_1";
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function DetectFaceRecognize(stream) {
+  // Detect faces from image stream. Since only recognizing, use the recognition model 4.
   // We use detection model 3 because we are not retrieving attributes.
-  let detected_faces = await client.face.detectWithBlob(blob, {
+  let detected_faces = await client.face.detectWithStream(stream, {
     detectionModel: "detection_03",
     recognitionModel: "recognition_04",
   });
@@ -34,10 +52,10 @@ async function AddFacesToPersonGroup(person_dictionary, person_group_id) {
               similar_image +
               "."
           );
-          await client.personGroupPerson.addFaceFromUrl(
+          await client.personGroupPerson.addFaceFromStream(
             person_group_id,
             person.personId,
-            image_base_url + similar_image
+            similar_image
           );
         })
       );
@@ -59,36 +77,21 @@ async function WaitForPersonGroupTraining(person_group_id) {
     await WaitForPersonGroupTraining(person_group_id);
   }
 }
-// </wait_for_training>
 
-/* NOTE This function might not work with the free tier of the Face service
-because it might exceed the rate limits. If that happens, try inserting calls
-to sleep() between calls to the Face service.
-*/
-// <identify>
-async function IdentifyInPersonGroup() {
+function createPersonDictionary(imagesArray, nombrePersona) {
+  return {
+    [nombrePersona]: imagesArray,
+  };
+}
+
+async function addPersonToGroupPerson(imagesArray, nombrePersona) {
   console.log("========IDENTIFY FACES========");
   console.log();
 
   // Create a dictionary for all your images, grouping similar ones under the same key.
-  const person_dictionary = {
-    "Family1-Dad": ["Family1-Dad1.jpg", "Family1-Dad2.jpg"],
-    "Family1-Mom": ["Family1-Mom1.jpg", "Family1-Mom2.jpg"],
-    "Family1-Son": ["Family1-Son1.jpg", "Family1-Son2.jpg"],
-    "Family1-Daughter": ["Family1-Daughter1.jpg", "Family1-Daughter2.jpg"],
-    "Family2-Lady": ["Family2-Lady1.jpg", "Family2-Lady2.jpg"],
-    "Family2-Man": ["Family2-Man1.jpg", "Family2-Man2.jpg"],
-  };
 
-  // A group photo that includes some of the persons you seek to identify from your dictionary.
-  let source_image_file_name = "identification1.jpg";
-
-  // Create a person group.
-  console.log("Creating a person group with ID: " + person_group_id);
-  await client.personGroup.create(person_group_id, {
-    name: person_group_id,
-    recognitionModel: "recognition_04",
-  });
+  const person_dictionary = createPersonDictionary(imagesArray, nombrePersona);
+  console.log(person_dictionary);
 
   await AddFacesToPersonGroup(person_dictionary, person_group_id);
 
@@ -99,11 +102,32 @@ async function IdentifyInPersonGroup() {
 
   await WaitForPersonGroupTraining(person_group_id);
   console.log();
+}
 
-  // Detect faces from source image url.
-  let face_ids = (
-    await DetectFaceRecognize(image_base_url + source_image_file_name)
-  ).map((face) => face.faceId);
+async function createGroupPerson() {
+  console.log("Creating a person group with ID: " + person_group_id);
+  await client.personGroup.create(person_group_id, {
+    name: person_group_id,
+    recognitionModel: "recognition_04",
+  });
+}
+
+async function deleteGroupPerson() {
+  console.log("deleting a person group with ID: " + person_group_id);
+  const headers = {
+    headers: {
+      "Ocp-Apim-Subscription-Key": "b900d6028af8412dac48b5f16f7d7c2b",
+    },
+  };
+
+  const { data } = await axios.delete(
+    `${endpoint}/face/v1.0/persongroups/my_group_1`,
+    headers
+  );
+}
+
+async function identifyPerson(stream) {
+  let face_ids = (await DetectFaceRecognize(stream)).map((face) => face.faceId);
 
   // Identify the faces in a person group.
   let results = await client.face.identify(face_ids, {
@@ -119,7 +143,6 @@ async function IdentifyInPersonGroup() {
         "Person: " +
           person.name +
           " is identified for face in: " +
-          source_image_file_name +
           " with ID: " +
           result.faceId +
           ". Confidence: " +
@@ -130,3 +153,9 @@ async function IdentifyInPersonGroup() {
   );
   console.log();
 }
+module.exports = {
+  createGroupPerson,
+  addPersonToGroupPerson,
+  identifyPerson,
+  deleteGroupPerson,
+};
