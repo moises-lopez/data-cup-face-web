@@ -3,12 +3,12 @@ import { Button } from "@material-ui/core";
 import EmotionsTab from "../components/EmotionsTab";
 import EmotionVerifier from "../components/EmotionVerifier";
 import PersonIdentifier from "../components/PersonIdentifier";
+import { identifyPerson } from "../functions/faceRecognitionIdentifierHelper";
 
 const { getFrameFromWebcam } = require("../functions/webcamHelper");
 const {
   getFaceInfoFromFrame,
 } = require("../functions/faceRecognitionEmotionsHelper");
-
 const EmotionsPage = () => {
   const [faceInfoFromFrame, setFaceInfoFromFrame] = useState({});
   const handleButtonCallApi = async () => {
@@ -16,6 +16,8 @@ const EmotionsPage = () => {
 
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
+    const identifyInfo = await identifyPerson(frameFromWebcam);
+    console.log(identifyInfo);
     // const myFaceInfoForPersonIdentifier = await getFaceInfoForPersonIdentifier(
     //   frameFromWebcam
     // );
