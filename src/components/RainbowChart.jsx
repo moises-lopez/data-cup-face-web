@@ -22,7 +22,7 @@ const RainbowChart = ({ data }) => {
   //       fill: "#8884d8",
   //     },
   //   ];
-  console.log(data, "HOLASedasd");
+  // console.log(data, "HOLASedasd");
   return (
     <RadialBarChart
       width={300}

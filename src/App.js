@@ -12,14 +12,12 @@ function App() {
 
   let changeTerms = (e) => {
     setTerms(!(terms));
-    console.log(terms)
   }
 
   let handleSubmit = (e) => {
     if (terms) {
       setPass(true)
     }
-    console.log('Hello')
   }
 
   // useEffect(async () => {

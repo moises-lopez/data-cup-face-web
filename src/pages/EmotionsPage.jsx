@@ -7,6 +7,7 @@ const { getFrameFromWebcam } = require("../functions/webcamHelper");
 const {getFaceInfoFromFrame} = require("../functions/faceRecognitionEmotionsHelper");
 
 const EmotionsPage = () => {
+
   const [faceInfoFromFrame, setFaceInfoFromFrame] = useState({});
   const handleButtonCallApi = async () => {
     const frameFromWebcam = await getFrameFromWebcam();
@@ -14,7 +15,7 @@ const EmotionsPage = () => {
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
     if (myFaceInfoFromFrame.faceAttributes) {
-      console.log(myFaceInfoFromFrame);
+      console.log(myFaceInfoFromFrame, Object.keys(myFaceInfoFromFrame), 'Test Message');
       setFaceInfoFromFrame(myFaceInfoFromFrame.faceAttributes);
     }
   };

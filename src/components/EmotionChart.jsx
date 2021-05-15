@@ -7,7 +7,7 @@ const EmotionChart = ({ props }) => {
     return <div></div>;
   }
 
-  console.log("DATA? ", data, key);
+  // console.log("DATA? ", data, key);
 
   const formatDataToGraph = (data) => {
     const keys = Object.keys(data);
