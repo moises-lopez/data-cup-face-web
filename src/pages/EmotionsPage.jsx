@@ -16,9 +16,7 @@ const EmotionsPage = () => {
     const frameFromWebcam = await getFrameFromWebcam();
 
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
-    axios.post('http://localhost:5000/api/face/save', myFaceInfoFromFrame)
-
-
+    axios.post('/api/face/save', myFaceInfoFromFrame)
     // const myFaceInfoForPersonIdentifier = await getFaceInfoForPersonIdentifier(
     //   frameFromWebcam
     // );
