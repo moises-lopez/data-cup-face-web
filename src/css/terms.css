@@ -1,0 +1,42 @@
+.terms {
+    width: 100%;
+    height: auto;
+    padding: 5rem;
+    background-color: white;
+    text-align: left !important;
+    font-size: 1.5rem;
+    color: white;
+}
+.terms h1 {
+    font-size: 4rem;
+    color: black;
+    margin-bottom: 2rem;
+}
+.terms h3 {
+    color: #353535;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+.terms p {
+    margin-bottom: 1rem;
+    color: #727272;
+    width: 90rem;
+}
+
+.terms .checkarea {
+    color: #727272;
+}
+
+.checkout {
+	border: 1;
+	margin-top: 0.8rem;
+	padding: 0.5rem 2.1rem;
+	background-color: #46a8b9;
+	color: #fff;
+	font-size: 1rem;
+	border-radius: 0.4rem;
+}
+
+.checkout:hover {
+	background-color: #46a8b9;
+}
