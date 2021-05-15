@@ -40,7 +40,7 @@ const EmotionsPage = () => {
       <button className='face_button' onClick={() => handleButtonCallApi()}>
         Analizar Cara
       </button>
-      {circle ? <div><SpinningCircle/></div> : <div/>}
+      {circle ? <div><SpinningCircle/></div> : <div className='empty_div'/>}
       </div>
       <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}/>
       {/* <PersonIdentifier/> */}
