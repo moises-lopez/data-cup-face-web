@@ -4,9 +4,7 @@ import EmotionsTab from "../components/EmotionsTab";
 import EmotionVerifier from "../components/EmotionVerifier";
 
 const { getFrameFromWebcam } = require("../functions/webcamHelper");
-const {
-  getFaceInfoFromFrame,
-} = require("../functions/faceRecognitionEmotionsHelper");
+const {getFaceInfoFromFrame} = require("../functions/faceRecognitionEmotionsHelper");
 
 const EmotionsPage = () => {
   const [faceInfoFromFrame, setFaceInfoFromFrame] = useState({});
