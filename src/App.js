@@ -6,6 +6,8 @@ import EmotionsPage from "./pages/EmotionsPage";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import TrainingPage from "./pages/TrainingPage";
 
+import './css/homepage.css'
+
 function App() {
   let [terms, setTerms] = useState(false);
   let [pass, setPass] = useState(false);
@@ -35,13 +37,11 @@ function App() {
 
   return (
     <div className="App">
-      <WebcamComponent></WebcamComponent>
-      <EmotionsPage></EmotionsPage>
-      {/* <TrainingPage></TrainingPage> */}
-      {/* <TermsAndConditions
-      changeTerms={changeTerms}
-      handleSubmit={handleSubmit}
-      /> */}
+      <div className='flex_home padding_img'>
+        <WebcamComponent/>
+        <EmotionsPage/>
+      </div>
+
     </div>
   );
 }
