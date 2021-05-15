@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import EmotionsTab from "../components/EmotionsTab";
+import EmotionVerifier from "../components/EmotionVerifier";
 
 const { getFrameFromWebcam } = require("../functions/webcamHelper");
 const {
@@ -16,7 +17,7 @@ const EmotionsPage = () => {
 
     if (myFaceInfoFromFrame.faceAttributes) {
       console.log(myFaceInfoFromFrame);
-      setFaceInfoFromFrame(myFaceInfoFromFrame.faceAttributes.emotion);
+      setFaceInfoFromFrame(myFaceInfoFromFrame.faceAttributes);
     }
   };
 
@@ -30,6 +31,7 @@ const EmotionsPage = () => {
         Analizar Cara
       </Button>
       <EmotionsTab data={faceInfoFromFrame}></EmotionsTab>
+      <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}></EmotionVerifier>
     </React.Fragment>
   );
 };

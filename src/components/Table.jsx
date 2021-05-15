@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-
+import EmotionChart from "./EmotionChart";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -16,10 +16,23 @@ const useStyles = makeStyles({
 
 export default function DenseTable({ data }) {
   const classes = useStyles();
+
   if (!data) {
     return <div></div>;
   }
+
   const keys = Object.keys(data);
+
+  const emojiArray = {
+    anger: "😠",
+    contempt: "😒",
+    disgust: "🤢",
+    fear: "😨",
+    happiness: "😃",
+    neutral: "😐",
+    sadness: "😰",
+    surprise: "😮",
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -28,7 +41,7 @@ export default function DenseTable({ data }) {
           <TableHead>
             {keys.map((key) => (
               <TableCell component="th" scope="row">
-                {key}
+                {key + emojiArray[key]}
               </TableCell>
             ))}
           </TableHead>
@@ -36,6 +49,7 @@ export default function DenseTable({ data }) {
             {keys.map((key) => (
               <TableCell component="th" scope="row">
                 {data[key]}
+                <EmotionChart props={{ data: data, key: key }}></EmotionChart>
               </TableCell>
             ))}
           </TableBody>
