@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import EmotionsTab from "../components/EmotionsTab";
 import EmotionVerifier from "../components/EmotionVerifier";
 import PersonIdentifier from "../components/PersonIdentifier";
+import axios from 'axios';
 
 const { getFrameFromWebcam } = require("../functions/webcamHelper");
 const {
@@ -15,17 +16,15 @@ const EmotionsPage = () => {
     const frameFromWebcam = await getFrameFromWebcam();
 
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
+    axios.post('http://localhost:5000/api/face/save', myFaceInfoFromFrame)
+
 
     // const myFaceInfoForPersonIdentifier = await getFaceInfoForPersonIdentifier(
     //   frameFromWebcam
     // );
 
     if (myFaceInfoFromFrame.faceAttributes) {
-      console.log(
-        myFaceInfoFromFrame,
-        Object.keys(myFaceInfoFromFrame),
-        "Test Message"
-      );
+      console.log(myFaceInfoFromFrame);
       setFaceInfoFromFrame(myFaceInfoFromFrame.faceAttributes);
     }
   };
