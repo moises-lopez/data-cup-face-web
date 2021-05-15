@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from "react";
+import { getMaxEmotion } from "../functions/emotionsHelper";
 
 const EmotionVerifier = ({ faceInfoFromFrame }) => {
-  const [randomEmotion, setRandomEmotion] = useState("");
-  const [counterVerification, setCounterVerification] = useState(3);
-
+  let [randomEmotion, setRandomEmotion] = useState("");
+  let [smiled, setSmiled] = useState(false);
+  let [counterVerification, setCounterVerification] = useState(2);
+  let commonEmotions = ["neutral", "happiness", "surprise"];
   console.log(faceInfoFromFrame);
 
-  const getRandomEmotion = () => {
-    if (!faceInfoFromFrame.emotion) {
-      return;
-    }
-    const emotionKeys = Object.keys(faceInfoFromFrame.emotion);
-    const randomElement =
-      emotionKeys[Math.floor(Math.random() * emotionKeys.length)];
-    setRandomEmotion(randomElement);
-  };
+  useEffect(() => {
+    commonEmotions = commonEmotions.sort(() => Math.random() - 0.5);
+  }, []);
 
-  if (!faceInfoFromFrame.smile) {
-    return <div>SONRIE PARA EMPEZAR</div>;
+  if (counterVerification === 0) {
+    setTimeout(function () {
+      setSmiled(false);
+      setCounterVerification(3);
+    }, 2000);
+    return <div>Aprobado!</div>;
   }
 
-  return <div>done</div>;
+  if (faceInfoFromFrame.smile == 1 && !smiled) {
+    setSmiled(true);
+  }
+
+  if (smiled == false) {
+    return <div>SONRIE PARA EMPEZAR</div>;
+  }
+  if (
+    commonEmotions[counterVerification] ===
+    getMaxEmotion(faceInfoFromFrame.emotion)
+  ) {
+    console.log("test passed");
+    setCounterVerification(counterVerification - 1);
+  }
+
+  return <div>{commonEmotions[counterVerification]}</div>;
 };
 
 export default EmotionVerifier;
