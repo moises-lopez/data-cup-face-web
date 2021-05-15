@@ -30,12 +30,8 @@ function App() {
 
   return (
     <div className="App">
-      <WebcamComponent></WebcamComponent>
-      <EmotionsPage></EmotionsPage>
-      {/* <TermsAndConditions
-      changeTerms={changeTerms}
-      handleSubmit={handleSubmit}
-      /> */}
+      <WebcamComponent/>
+      <EmotionsPage/>
     </div>
   );
 }

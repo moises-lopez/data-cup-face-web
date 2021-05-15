@@ -36,9 +36,9 @@ const EmotionsPage = () => {
       <Button onClick={() => handleButtonCallApi()} color="primary">
         Analizar Cara
       </Button>
-      <PersonIdentifier></PersonIdentifier>
-      <EmotionsTab data={faceInfoFromFrame}></EmotionsTab>
-      <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}></EmotionVerifier>
+      <PersonIdentifier/>
+      <EmotionsTab data={faceInfoFromFrame}/>
+      <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}/>
     </React.Fragment>
   );
 };
