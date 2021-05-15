@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import EmotionsTab from "../components/EmotionsTab";
 import EmotionVerifier from "../components/EmotionVerifier";
 import PersonIdentifier from "../components/PersonIdentifier";
+import SpinningCircle from '../components/SpinningCircle'
 import axios from 'axios';
 
 const { getFrameFromWebcam } = require("../functions/webcamHelper");
@@ -12,9 +13,10 @@ const {
 
 const EmotionsPage = () => {
   const [faceInfoFromFrame, setFaceInfoFromFrame] = useState({});
+  const [circle, setCirle] = useState(false);
   const handleButtonCallApi = async () => {
+    setCirle(true)
     const frameFromWebcam = await getFrameFromWebcam();
-
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
     axios.post('/api/face/save', myFaceInfoFromFrame)
     // const myFaceInfoForPersonIdentifier = await getFaceInfoForPersonIdentifier(
@@ -25,6 +27,7 @@ const EmotionsPage = () => {
       console.log(myFaceInfoFromFrame);
       setFaceInfoFromFrame(myFaceInfoFromFrame.faceAttributes);
     }
+    setCirle(false)
   };
 
   if (!faceInfoFromFrame) {
@@ -33,12 +36,15 @@ const EmotionsPage = () => {
 
   return (
     <React.Fragment>
-      <Button onClick={() => handleButtonCallApi()} color="primary">
+      <div className='flex_button'>
+      <button className='face_button' onClick={() => handleButtonCallApi()}>
         Analizar Cara
-      </Button>
-      <PersonIdentifier/>
-      <EmotionsTab data={faceInfoFromFrame}/>
+      </button>
+      {circle ? <div><SpinningCircle/></div> : <div/>}
+      </div>
       <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}/>
+      {/* <PersonIdentifier/> */}
+      <EmotionsTab data={faceInfoFromFrame}/>
     </React.Fragment>
   );
 };

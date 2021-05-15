@@ -5,6 +5,8 @@ import WebcamComponent from "./components/WebcamComponent";
 import EmotionsPage from "./pages/EmotionsPage";
 import TermsAndConditions from './pages/TermsAndConditions';
 
+import './css/homepage.css'
+
 function App() {
   
   let [terms, setTerms] = useState(false)
@@ -30,8 +32,10 @@ function App() {
 
   return (
     <div className="App">
-      <WebcamComponent/>
-      <EmotionsPage/>
+      <div className='flex_home padding_img'>
+        <WebcamComponent/>
+        <EmotionsPage/>
+      </div>
     </div>
   );
 }

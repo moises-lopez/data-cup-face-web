@@ -1,0 +1,78 @@
+.flex_home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.face_button {
+    font-size: .9rem;
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+    padding: 0.9rem 1.0rem;
+    margin: 1rem;
+    box-shadow: 0 .3rem .3rem rgba(0, 0, 0, 0.3);
+    border: 0.1rem solid #1566BF;
+    color: #1566BF;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+
+.padding_img {
+    padding: 1.1rem 1.1rem 1.1rem 1.1rem;
+}
+
+.main_spinning_cirlce {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left:20%;
+    top: 50%;
+}
+
+.helper_spinning_circle {
+    width: 1.0rem;
+    height: 1.0rem;
+    border: 3px solid #bbb;
+    border-radius: 1rem;
+    border-left-color: #1566BF;
+    border-top-color: #1566BF;
+    animation: round 1s ease-in-out infinite;
+}
+
+
+.flex_button {
+    display: flex;
+    flex-direction: row;
+}
+
+
+@keyframes round {
+    0% {
+       transform: rotate(0deg);
+       }
+   100% {
+     transform: rotate(1080deg); /* Apparently the calc function didnt work in Codepen's css asin transform: rotate(calc(360deg * 3)); */
+        }
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .padding_img {
+        padding: 0rem 0rem 0rem 0rem;
+    }
+
+}
+
+@media screen and (min-width: 720px) {
+
+    .face_button:hover {
+        background: #1566BF;
+        color: #fff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+        transform: scale(.9);
+    }
+
+}
