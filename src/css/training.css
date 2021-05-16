@@ -1,0 +1,111 @@
+.flat-table {
+    margin-bottom: 20px;
+    border-collapse:collapse;
+    background: #1566BF;
+}
+.flat-table th, .flat-table td {
+    box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
+        inset 0 1px rgba(0,0,0,0.25);
+}
+.flat-table th {
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    padding: 0.7rem;
+    color: white;
+    text-shadow: 0 0 1px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+}
+.flat-table td {
+    color: #f7f7f7;
+    padding: 0.7em 1em 0.7em 1.15em;
+    text-shadow: 0 0 1px rgba(255,255,255,0.1);
+    font-size: 1.4em;
+}
+.flat-table tr {
+    -webkit-transition: background 0.3s, box-shadow 0.3s;
+    -moz-transition: background 0.3s, box-shadow 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
+    background: rgba(0,0,0,0.19);
+}
+
+.flex_training {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.form {
+    width: 15rem;
+    text-align: left;
+    margin-top: 1rem;
+    padding: 0rem;
+    height: 80%;
+}
+.form label {
+    display: block;
+    text-align: left;
+    color: black;
+    font-size: 1rem;
+}
+.form .form2 .text-input {
+    overflow: hidden;
+    margin-bottom: 0.6em;
+}
+.form .form2 input[type="text"], .form .form2 input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 0;
+    background: none;
+    color: black;
+    font-size: 1rem;
+    font-weight: 400;
+    border: none;
+    border-bottom: 1px solid #999;
+   /*Some sibling magic happens */
+}
+.form .form2 input[type="text"]:focus + .separator, .form .form2 input[type="password"]:focus + .separator {
+    transform: scaleX(1) translateY(-2px);
+    opacity: 1;
+    border: none;
+}
+.form .form2 input[type="submit"] {
+    color: black;
+    background: #1566BF;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+}
+.separator {
+    height: 3px;
+    width: 100%;
+    background: #1566BF;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all 0.15s linear;
+}
+
+.form-bottom {
+    margin-top: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex_training_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.training_cirlce {
+    left:20%;
+    bottom: 10%;
+}
+
+.training_circle_flex {
+    display: flex;
+}

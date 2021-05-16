@@ -21,32 +21,22 @@ const TablePersons = ({ data }) => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Número de fotos</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <div>
+      <table className='flat-table'>
+        <thead>
+          <th>Nombre</th>
+          <th>Numero de Fotos</th>
+        </thead>
+        <tbody>
           {data.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-            </TableRow>
-          ))}
-          {data.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.persistedFaceIds.length}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            <tr>
+            <td> {row.name} </td>
+            <td> {row.persistedFaceIds.length} </td>
+            </tr>
+          ))} 
+        </tbody>
+      </table>
+    </div>
   );
 };
 

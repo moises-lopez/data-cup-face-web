@@ -7,9 +7,16 @@ import {
 } from "../functions/faceRecognitionIdentifierHelper";
 import TablePersons from "../components/TablePersons";
 import findPersonsInGroupInAzure from "../functions/facePersonGroupHelper";
+import InputField from '../components/InputField'
+import ChainofButtons from '../components/ChainofButtons'
+import SpinningCircle from '../components/SpinningCircle'
+
+import '../css/training.css'
+import '../css/homepage.css'
 
 const TrainingPage = () => {
   const [images, setImages] = useState([]);
+  const [circle, setCirle] = useState(false);
   const [nombrePersona, setNombrePersona] = useState("");
   const [imagenesSubidas, setImagenesSubidas] = useState(0);
   const [personsInGroup, setPersonsInGroup] = useState([]);
@@ -25,42 +32,51 @@ const TrainingPage = () => {
   };
 
   const getPersonsInGroup = async () => {
+    setCirle(true)
     const myPersonsInGroup = await findPersonsInGroupInAzure();
     setPersonsInGroup(myPersonsInGroup);
+    setCirle(false)
   };
 
   const handleTraining = async () => {
+    setCirle(true)
     addPersonToGroupPerson(images, nombrePersona);
+    setCirle(false)
   };
 
   const handleCreateGroup = async () => {
+    setCirle(true)
     await createGroupPerson();
+    setCirle(false)
   };
 
   const handleDeleteGroup = async () => {
+    setCirle(true)
     await deleteGroupPerson();
+    setCirle(false)
   };
 
   return (
-    <div>
-      <h1>Select Image</h1>
-      <TextField
-        label="Nombre Persona"
-        value={nombrePersona}
-        onChange={(e) => setNombrePersona(e.target.value)}
-      ></TextField>
+    <div className='flex_training'>
+      {circle ? 
+      <div className='training_circle_flex'>
+      <p> Fetching Request... </p> 
+      <SpinningCircle training={true}/>
+      </div>
+      : <div className='empty_div'/>}
+      <InputField/>
       <TablePersons data={personsInGroup} />
+
+
       <p>Imágenes subidas = {imagenesSubidas}</p>
       <input type="file" name="myImage" onChange={(e) => onImageChange(e)} />
-      <Button onClick={() => getPersonsInGroup()}>
-        Mostrar personas entrenadas
-      </Button>
 
-      <Button onClick={() => handleTraining()}>TRAIN</Button>
-      <Button onClick={() => handleCreateGroup()}>CREATE GROUP</Button>
-      <Button onClick={() => handleDeleteGroup()}>
-        DELETEEEEEEEEEEE!!!!!! GROUP
-      </Button>
+      <ChainofButtons
+      getPersonsInGroup={getPersonsInGroup}
+      handleTraining={handleTraining}
+      handleCreateGroup={handleCreateGroup}
+      handleDeleteGroup={handleDeleteGroup}
+      />
     </div>
   );
 };

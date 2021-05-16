@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import '../css/homepage.css'
 
-const SpinningCircle = () => {
+const SpinningCircle = ({training}) => {
     return ( 
-        <div className='main_spinning_cirlce'>
+        <div className={training ? 'main_spinning_circle training_cirlce' : 'main_spinning_circle'}>
             <div className='helper_spinning_circle'/>
         </div>
      );
