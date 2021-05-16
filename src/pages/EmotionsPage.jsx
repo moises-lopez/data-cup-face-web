@@ -43,8 +43,7 @@ const EmotionsPage = () => {
       {circle ? <div><SpinningCircle/></div> : <div className='empty_div'/>}
       </div>
       <EmotionVerifier faceInfoFromFrame={faceInfoFromFrame}/>
-      {/* <PersonIdentifier/> */}
-      <EmotionsTab data={faceInfoFromFrame}/>
+      <EmotionsTab data={faceInfoFromFrame.emotion}/>
     </React.Fragment>
   );
 };

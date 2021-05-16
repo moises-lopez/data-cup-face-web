@@ -8,10 +8,13 @@ import {
 } from "recharts";
 
 const RainbowChart = ({ data }) => {
+  console.log(window.innerWidth)
+  let width = window.innerWidth > 600 ? 160 : 100
+  let height = window.innerWidth > 600 ? 90 : 60
   return (
     <RadialBarChart
-      width={300}
-      height={200}
+      width={width}
+      height={height}
       innerRadius="10%"
       outerRadius="80%"
       data={data}
