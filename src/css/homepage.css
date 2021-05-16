@@ -52,6 +52,23 @@
     flex-direction: row;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: 10rem 10rem 10rem;
+    grid-gap: 1.0rem;
+    background-color: #fff;
+    color: #444;
+}
+  
+.box {
+    border: 0.15rem solid #1566BF;
+    color: #000;
+    border-radius: 0.5rem;
+    font-size: 110%;
+}
+
+
+
 
 @keyframes round {
     0% {
@@ -69,6 +86,11 @@
         padding: 0rem 0rem 0rem 0rem;
     }
 
+    .wrapper {
+        grid-template-columns: 6.5rem 6.5rem 6.5rem;
+        grid-gap: .8rem;
+        margin: 1rem;
+    }
 }
 
 @media screen and (min-width: 720px) {
@@ -79,5 +101,6 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
         transform: scale(.9);
     }
+
 
 }
