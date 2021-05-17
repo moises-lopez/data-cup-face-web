@@ -1,135 +1,132 @@
 .flex_home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .face_button {
-    font-size: .9rem;
-    color: #000;
-    background-color: #fff;
-    text-decoration: none;
-    padding: 0.9rem 1.0rem;
-    margin: 1rem;
-    box-shadow: 0 .3rem .3rem rgba(0, 0, 0, 0.3);
-    border: 0.1rem solid #1566BF;
-    color: #1566BF;
-    border-radius: 3px;
-    transition: .4s;
+  font-size: 0.9rem;
+  color: #000;
+  background-color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 1rem;
+  margin: 1rem;
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.3);
+  border: 0.1rem solid #1566bf;
+  color: #1566bf;
+  border-radius: 3px;
+  transition: 0.4s;
 }
 
 .container_messages {
-    font-size: 1.1rem;
-    background-color: #1566BF;
-    text-decoration: none;
-    padding: 0.1rem .5rem;
-    margin: 0.1rem;
-    border: 0.1rem solid #1566BF;
-    color: white;
+  font-size: 1.1rem;
+  background-color: #1566bf;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
+  border: 0.1rem solid #1566bf;
+  color: white;
 }
 
 .container_messages_green {
-    font-size: 1.1rem;
-    background-color: #BBFA9C;
-    text-decoration: none;
-    padding: 0.1rem .5rem;
-    margin: 0.1rem;
-    border: 0.1rem solid #BBFA9C;
-    color: white;
+  font-size: 1.1rem;
+  background-color: #bbfa9c;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
+  border: 0.1rem solid #bbfa9c;
+  color: white;
 }
 
 .container_messages_red {
-    font-size: 1.1rem;
-    background-color: #FF6961;
-    text-decoration: none;
-    padding: 0.1rem .5rem;
-    margin: 0.1rem;
-    border: 0.1rem solid #FF6961;
-    color: white;
+  font-size: 1.1rem;
+  background-color: #ff6961;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
+  border: 0.1rem solid #ff6961;
+  color: white;
 }
 
-
+.big_text {
+  font-size: 1.8rem;
+}
 .padding_img {
-    padding: 1.1rem 1.1rem 1.1rem 1.1rem;
+  padding: 1.1rem 1.1rem 1.1rem 1.1rem;
 }
 
 .main_spinning_circle {
-    position: relative;
-    transform: translate(-50%, -50%);
-    left:20%;
-    top: 50%;
+  position: relative;
+  transform: translate(-50%, -50%);
+  left: 20%;
+  top: 50%;
 }
 
 .helper_spinning_circle {
-    width: 1.0rem;
-    height: 1.0rem;
-    border: 3px solid #bbb;
-    border-radius: 1rem;
-    border-left-color: #1566BF;
-    border-top-color: #1566BF;
-    animation: round 1s ease-in-out infinite;
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid #bbb;
+  border-radius: 1rem;
+  border-left-color: #1566bf;
+  border-top-color: #1566bf;
+  animation: round 1s ease-in-out infinite;
 }
 
 .empty_div {
-    width: 1.1rem;
-    height: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
-
 .flex_button {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .wrapper {
-    display: grid;
-    grid-template-columns: 10rem 10rem 10rem;
-    grid-gap: 1.0rem;
-    background-color: #fff;
-    color: #444;
-    padding: 1rem;
-}
-  
-.box {
-    border: 0.15rem solid #1566BF;
-    color: #000;
-    border-radius: 0.5rem;
-    font-size: 110%;
+  display: grid;
+  grid-template-columns: 10rem 10rem 10rem;
+  grid-gap: 1rem;
+  background-color: #fff;
+  color: #444;
+  padding: 1rem;
 }
 
+.box {
+  border: 0.15rem solid #1566bf;
+  color: #000;
+  border-radius: 0.5rem;
+  font-size: 110%;
+}
 
 @keyframes round {
-    0% {
-       transform: rotate(0deg);
-       }
-   100% {
-     transform: rotate(1080deg); /* Apparently the calc function didnt work in Codepen's css asin transform: rotate(calc(360deg * 3)); */
-        }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(
+      1080deg
+    ); /* Apparently the calc function didnt work in Codepen's css asin transform: rotate(calc(360deg * 3)); */
+  }
 }
 
-
 @media screen and (max-width: 480px) {
+  .padding_img {
+    padding: 0rem 0rem 0rem 0rem;
+  }
 
-    .padding_img {
-        padding: 0rem 0rem 0rem 0rem;
-    }
-
-    .wrapper {
-        grid-template-columns: 6.5rem 6.5rem 6.5rem;
-        grid-gap: .8rem;
-        margin: 1rem;
-    }
+  .wrapper {
+    grid-template-columns: 6.5rem 6.5rem 6.5rem;
+    grid-gap: 0.8rem;
+    margin: 1rem;
+  }
 }
 
 @media screen and (min-width: 720px) {
-
-    .face_button:hover {
-        background: #1566BF;
-        color: #fff;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
-        transform: scale(.9);
-    }
-
-
+  .face_button:hover {
+    background: #1566bf;
+    color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    transform: scale(0.9);
+  }
 }

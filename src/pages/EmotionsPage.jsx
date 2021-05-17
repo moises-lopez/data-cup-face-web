@@ -53,8 +53,6 @@ const EmotionsPage = () => {
 
     const myIdentifyInfo = await identifyPerson(frameFromWebcam);
 
-    axios.post("/api/face/save", myFaceInfoFromFrame);
-
     setFaceInfoFromFrame(myFaceInfoFromFrame);
     setIdentifyInfo(myIdentifyInfo);
     console.log("IDENTITY", myIdentifyInfo);
@@ -74,6 +72,8 @@ const EmotionsPage = () => {
     if (!isSamePerson) {
       setIsSamePerson(false);
       console.log("is not same person");
+      setCirle(false);
+
       return;
     }
 
@@ -98,8 +98,8 @@ const EmotionsPage = () => {
     setTimeout(function () {
       setCounterVerification(3);
       setCurrentName("");
-    }, 2000);
-    return <div className='container_messages_green'>Aprobado!</div>;
+    }, 5000);
+    return <div className="container_messages_green">Aprobado!</div>;
   }
 
   if (!isSamePerson) {
@@ -108,7 +108,11 @@ const EmotionsPage = () => {
       setCounterVerification(3);
       setCurrentName("");
     }, 2000);
-    return <div>Hubo Cambio de Persona!</div>;
+    return (
+      <div className="big_text container_messages_red">
+        Hubo Cambio de Persona!
+      </div>
+    );
   }
 
   return (
