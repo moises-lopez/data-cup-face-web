@@ -52,6 +52,9 @@ const EmotionsPage = () => {
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
     const myIdentifyInfo = await identifyPerson(frameFromWebcam);
+    if (counterVerification === 3) {
+      setCurrentName("");
+    }
 
     axios.post("/api/face/save", myFaceInfoFromFrame);
 
@@ -126,6 +129,7 @@ const EmotionsPage = () => {
       </div>
       <PersonVerifier
         props={{
+          currentName: currentName,
           identifyInfo: identifyInfo,
           personIsDoingCorrectGesture: personIsDoingCorrectGesture,
           propsEmpty: propsEmpty,

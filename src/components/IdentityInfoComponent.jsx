@@ -1,6 +1,8 @@
 import React from "react";
 
-const IdentityInfoComponent = ({ identifyInfo }) => {
+const IdentityInfoComponent = ({ props }) => {
+  const { currentName, identifyInfo } = props;
+
   console.log("identifyInfo", identifyInfo);
   if (identifyInfo == 0) {
     return <div></div>;
@@ -13,7 +15,7 @@ const IdentityInfoComponent = ({ identifyInfo }) => {
       </div>
     );
   }
-  return <div>HOLA {identifyInfo.name}</div>;
+  return <div>HOLA {currentName}</div>;
 };
 
 export default IdentityInfoComponent;

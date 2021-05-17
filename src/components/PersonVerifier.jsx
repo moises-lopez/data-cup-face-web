@@ -21,11 +21,14 @@ const PersonVerifier = ({ props }) => {
     counterVerification,
     buttonPressendOnce,
     identifyInfo,
+    currentName,
   } = props;
   console.log("IDENEITIPERSON", identifyInfo);
   return (
     <React.Fragment>
-      <IdentityInfoComponent identifyInfo={identifyInfo} />
+      <IdentityInfoComponent
+        props={{ currentName: currentName, identifyInfo: identifyInfo }}
+      />
       <PropsEmptyComponent propsEmpty={propsEmpty} />
       <GestureStatusComponent
         props={{
