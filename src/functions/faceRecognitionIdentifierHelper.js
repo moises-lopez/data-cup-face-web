@@ -128,17 +128,34 @@ async function deleteGroupPerson() {
 
 async function identifyPerson(stream) {
   let face_ids = (await DetectFaceRecognize(stream)).map((face) => face.faceId);
+  if (face_ids.length < 1) {
+    console.log("No reconocido 1");
+    return -1;
+  }
+
+  console.log(face_ids);
 
   // Identify the faces in a person group.
   let results = await client.face.identify(face_ids, {
     personGroupId: person_group_id,
   });
+  console.log(results);
+
+  if (results[0].candidates.length < 1) {
+    console.log("No reconocido 2");
+    return -1;
+  }
+
+  let personIdentified = {};
+
   await Promise.all(
     results.map(async function (result) {
       let person = await client.personGroupPerson.get(
         person_group_id,
         result.candidates[0].personId
       );
+      personIdentified.name = person.name;
+      personIdentified.confidence = result.candidates[0].confidence;
       console.log(
         "Person: " +
           person.name +
@@ -151,6 +168,10 @@ async function identifyPerson(stream) {
       );
     })
   );
+  if (Object.keys(personIdentified).length === 0) {
+    return -1;
+  }
+  return personIdentified;
   console.log();
 }
 module.exports = {

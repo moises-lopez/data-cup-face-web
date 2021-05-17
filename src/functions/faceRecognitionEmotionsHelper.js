@@ -26,7 +26,7 @@ const getFaceInfoFromFrame = async (blob) => {
     return faceInfoFromFrame;
     console.log("face!");
   } else {
-    return {};
+    return -1;
     console.log("no face");
   }
 };

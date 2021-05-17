@@ -1,41 +1,113 @@
 import React, { useState, useEffect } from "react";
-import { getMaxEmotion } from "../functions/emotionsHelper";
+import {
+  checkIfUserIsDoingEmotion,
+  checkIfUserIsDoingHeadPose,
+} from "../functions/emotionsHelper";
 
-const EmotionVerifier = ({ faceInfoFromFrame }) => {
-  let [randomEmotion, setRandomEmotion] = useState("");
-  let [smiled, setSmiled] = useState(false);
-  let [counterVerification, setCounterVerification] = useState(2);
-  let commonEmotions = ["neutral", "happiness", "surprise"];
+const EmotionVerifier = ({ props }) => {
+  console.log(props);
+  // let [identifyInfo, setIdentifyInfo] = useState();
+  // let [faceInfoFromFrame, setFaceInfoFromFrame] = useState();
+
+  // if (props) {
+  //   if (props.identifyInfo) {
+  //     const { identifyInfo } = props;
+  //     setIdentifyInfo(identifyInfo);
+  //   }
+  // }
+
+  // if (props) {
+  //   if (props.faceInfoFromFrame) {
+  //     const { faceInfoFromFrame } = props;
+  //     setFaceInfoFromFrame(faceInfoFromFrame);
+  //   }
+  // }
+
+  let { faceInfoFromFrame, identifyInfo } = props;
+
+  const initialCurrentName =
+    "No conozco tu nombre, regístrate en el apartado de train model!";
+  const commonEmotions = ["neutral", "happiness", "surprise"];
+  const commonHeadDirections = ["left", "right", "up", "down"];
+  let [currentName, setCurrentName] = useState(initialCurrentName);
+  let [counterVerification, setCounterVerification] = useState(3);
+  const [verificatorStates, setVerificatorStates] = useState([
+    "neutral",
+    "happiness",
+    "surprise",
+    "left",
+    "right",
+    "up",
+    "down",
+  ]);
+
   console.log(faceInfoFromFrame);
 
   useEffect(() => {
-    commonEmotions = commonEmotions.sort(() => Math.random() - 0.5);
+    let myVerificatorStates = verificatorStates;
+    myVerificatorStates = myVerificatorStates.sort(() => Math.random() - 0.5);
+    setVerificatorStates(myVerificatorStates);
   }, []);
 
+  if (faceInfoFromFrame == 0) {
+    return <div>Presiona el botón para empezar el reconocimiento!</div>;
+  }
+
+  // if (identifyInfo) {
+  //   console.log("HOLA", identifyInfo.name);
+  //   setCurrentName(identifyInfo.name);
+  // }
+  console.log(identifyInfo, "Hola");
   if (counterVerification === 0) {
     setTimeout(function () {
-      setSmiled(false);
+      setCurrentName("");
       setCounterVerification(3);
-    }, 2000);
+    }, 5000);
     return <div>Aprobado!</div>;
   }
 
-  if (faceInfoFromFrame.smile == 1 && !smiled) {
-    setSmiled(true);
+  if (commonEmotions.includes(verificatorStates[counterVerification])) {
+    const result = checkIfUserIsDoingEmotion(
+      faceInfoFromFrame.emotion,
+      verificatorStates[counterVerification]
+    );
+    if (result) {
+      setCounterVerification(counterVerification - 1);
+    } else {
+      return (
+        <div>
+          {identifyInfo && identifyInfo.name}
+          No pudimos intentar la verificación, inténtalo de nuevo! <br></br> Haz
+          lo siguiente para verificarte !:
+          {verificatorStates[counterVerification]}
+        </div>
+      );
+    }
+  } else {
+    const result = checkIfUserIsDoingHeadPose(
+      faceInfoFromFrame.headPose,
+      verificatorStates[counterVerification]
+    );
+    if (result) {
+      setCounterVerification(counterVerification - 1);
+    } else {
+      return (
+        <div>
+          No pudimos intentar la verificación, inténtalo de nuevo! <br></br> Haz
+          lo siguiente para verificarte ! =
+          {verificatorStates[counterVerification]}
+        </div>
+      );
+    }
   }
 
-  if (smiled == false) {
-    return <div>SONRIE PARA EMPEZAR</div>;
-  }
-  if (
-    commonEmotions[counterVerification] ===
-    getMaxEmotion(faceInfoFromFrame.emotion)
-  ) {
-    console.log("test passed");
-    setCounterVerification(counterVerification - 1);
-  }
-
-  return <div>{commonEmotions[counterVerification]}</div>;
+  return (
+    <div>
+      Hola {currentName}
+      <br></br> Haz lo siguiente para verificarte ! =
+      {verificatorStates[counterVerification]}
+    </div>
+  );
 };
 
 export default EmotionVerifier;
