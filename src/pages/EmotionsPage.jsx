@@ -52,9 +52,6 @@ const EmotionsPage = () => {
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
     const myIdentifyInfo = await identifyPerson(frameFromWebcam);
-    if (counterVerification === 3) {
-      setCurrentName("");
-    }
 
     axios.post("/api/face/save", myFaceInfoFromFrame);
 
@@ -70,15 +67,16 @@ const EmotionsPage = () => {
       myPropsEmpty,
       myFaceInfoFromFrame
     );
-
+    if (!myPropsEmpty) {
+      console.log("changin name");
+      setCurrentName(myIdentifyInfo.name);
+    }
     if (!isSamePerson) {
       setIsSamePerson(false);
-
+      console.log("is not same person");
       return;
     }
-    if (!isPropsEmpty) {
-      setCurrentName(identifyInfo.name);
-    }
+
     const myPersonIsDoingCorrectGesture = isPersonDoingCorrectGesture(
       myFaceInfoFromFrame,
       verificatorStates[counterVerification],

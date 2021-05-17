@@ -47,7 +47,7 @@ const TrainingPage = () => {
 
   const handleTraining = async () => {
     setCirle(true);
-    addPersonToGroupPerson(images, nombrePersona);
+    await addPersonToGroupPerson(images, nombrePersona);
     setCirle(false);
   };
 

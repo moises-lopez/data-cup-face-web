@@ -15,7 +15,7 @@ const IdentityInfoComponent = ({ props }) => {
       </div>
     );
   }
-  return <div>Hola {currentName}</div>;
+  return <div>Hola {identifyInfo.name}</div>;
 };
 
 export default IdentityInfoComponent;
