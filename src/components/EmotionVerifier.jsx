@@ -75,7 +75,7 @@ const EmotionVerifier = ({ props }) => {
       setCounterVerification(counterVerification - 1);
     } else {
       return (
-        <div>
+        <div className='container_messages_red'>
           {identifyInfo && identifyInfo.name}
           No pudimos intentar la verificación, inténtalo de nuevo! <br></br> Haz
           lo siguiente para verificarte !:

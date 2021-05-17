@@ -9,7 +9,7 @@ const IdentityInfoComponent = ({ props }) => {
   }
   if (identifyInfo == -1) {
     return (
-      <div>
+      <div className='container_messages_red'>
         No te reconozco, prueba mejorar la luz de la foto o registrarte en el
         training model{"  "}
       </div>
