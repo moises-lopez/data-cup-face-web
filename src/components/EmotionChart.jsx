@@ -22,7 +22,7 @@ const EmotionChart = ({ props }) => {
     },
   ];
 
-  return <RainbowChart data={dataReadyToGraph}/>;
+  return <RainbowChart data={dataReadyToGraph} />;
 };
 
 export default EmotionChart;

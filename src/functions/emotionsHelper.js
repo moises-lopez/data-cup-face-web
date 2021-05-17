@@ -93,7 +93,7 @@ const isSamePersonFunction = (
   myFaceInfoFromFrame
 ) => {
   console.log(
-    "name: ",
+    "name:",
     currentName,
     "identify:",
     myIdentifyInfo,
@@ -103,6 +103,9 @@ const isSamePersonFunction = (
   );
   if (myFaceInfoFromFrame != -1 && myIdentifyInfo == -1 && currentName != "") {
     return false;
+  }
+  if (myPropsEmpty && currentName != "") {
+    return true;
   }
   if (currentName == "") {
     return true;

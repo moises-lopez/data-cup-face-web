@@ -9,6 +9,7 @@ import {
   isSamePersonFunction,
 } from "../functions/emotionsHelper";
 import { identifyPerson } from "../functions/faceRecognitionIdentifierHelper";
+import WebcamComponent from "../components/WebcamComponent";
 
 import SpinningCircle from "../components/SpinningCircle";
 import axios from "axios";
@@ -117,7 +118,7 @@ const EmotionsPage = () => {
       setIsSamePerson(true);
       setCounterVerification(3);
       setCurrentName("");
-    }, 2000);
+    }, 5000);
     return (
       <div className="big_text container_messages_red">
         Hubo Cambio de Persona!
@@ -127,6 +128,12 @@ const EmotionsPage = () => {
 
   return (
     <React.Fragment>
+      <div className="flex_div  ">
+        <WebcamComponent />
+        <EmotionsTab
+          data={faceInfoFromFrame && faceInfoFromFrame.faceAttributes}
+        />
+      </div>
       <div className="flex_button">
         <button className="face_button" onClick={() => handleButtonCallApi()}>
           Analizar Cara
@@ -148,9 +155,6 @@ const EmotionsPage = () => {
           counterVerification: counterVerification,
           buttonPressendOnce: buttonPressendOnce,
         }}
-      />
-      <EmotionsTab
-        data={faceInfoFromFrame && faceInfoFromFrame.faceAttributes}
       />
     </React.Fragment>
   );

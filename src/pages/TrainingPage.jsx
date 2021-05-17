@@ -48,6 +48,8 @@ const TrainingPage = () => {
   const handleTraining = async () => {
     setCirle(true);
     await addPersonToGroupPerson(images, nombrePersona);
+    setImages([]);
+    setImagenesSubidas(0);
     setCirle(false);
   };
 
