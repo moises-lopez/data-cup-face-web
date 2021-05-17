@@ -63,9 +63,9 @@ const EmotionsPage = () => {
     console.log("IDENTITY", myIdentifyInfo);
     const myPropsEmpty = isPropsEmpty(myFaceInfoFromFrame, myIdentifyInfo);
     setPropsEmpty(myPropsEmpty);
-    
-    myFaceInfoFromFrame.name = myIdentifyInfo.name;
+
     if (!myPropsEmpty) {
+      myFaceInfoFromFrame.name = myIdentifyInfo.name;
       axios.post("/api/face/save", myFaceInfoFromFrame);
     }
 
