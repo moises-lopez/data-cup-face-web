@@ -58,6 +58,7 @@
     grid-gap: 1.0rem;
     background-color: #fff;
     color: #444;
+    padding: 1rem;
 }
   
 .box {
@@ -66,8 +67,6 @@
     border-radius: 0.5rem;
     font-size: 110%;
 }
-
-
 
 
 @keyframes round {

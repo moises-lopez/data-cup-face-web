@@ -11,11 +11,11 @@ const IdentityInfoComponent = ({ props }) => {
     return (
       <div>
         No te reconozco, prueba mejorar la luz de la foto o registrarte en el
-        training model{" "}
+        training model{"  "}
       </div>
     );
   }
-  return <div>HOLA {currentName}</div>;
+  return <div>Hola {currentName}</div>;
 };
 
 export default IdentityInfoComponent;

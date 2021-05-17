@@ -84,8 +84,10 @@ const TrainingPage = () => {
     <div className="flex_training">
       {circle ? (
         <div className="training_circle_flex">
-          <p> Fetching Request... </p>
-          <SpinningCircle training={true} />
+          <p> Haciendo petición... </p>
+          <div>
+            <SpinningCircle training={true} />
+          </div>
         </div>
       ) : (
         <div className="empty_div" />
