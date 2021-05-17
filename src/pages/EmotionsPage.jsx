@@ -56,13 +56,20 @@ const EmotionsPage = () => {
       setCurrentName("");
     }
 
-    axios.post("/api/face/save", myFaceInfoFromFrame);
-
+    // myFaceInfoFromFrame.name = myIdentifyInfo.name;
+    // if (!myPropsEmpty) {
+    //   axios.post("/api/face/save", myFaceInfoFromFrame);
+    // }
     setFaceInfoFromFrame(myFaceInfoFromFrame);
     setIdentifyInfo(myIdentifyInfo);
     console.log("IDENTITY", myIdentifyInfo);
     const myPropsEmpty = isPropsEmpty(myFaceInfoFromFrame, myIdentifyInfo);
     setPropsEmpty(myPropsEmpty);
+    
+    myFaceInfoFromFrame.name = myIdentifyInfo.name;
+    if (!myPropsEmpty) {
+      axios.post("/api/face/save", myFaceInfoFromFrame);
+    }
 
     const isSamePerson = isSamePersonFunction(
       currentName,
