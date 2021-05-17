@@ -110,7 +110,7 @@ const EmotionsPage = () => {
       setCounterVerification(3);
       setCurrentName("");
     }, 5000);
-    return <div className="container_messages_green">Aprobado!</div>;
+    return <div className="big_text container_messages_green">Aprobado!</div>;
   }
 
   if (!isSamePerson) {

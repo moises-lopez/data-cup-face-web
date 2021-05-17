@@ -6,6 +6,15 @@ import IdentityInfoComponent from "../components/IdentityInfoComponent";
 import GestureStatusComponent from "./GestureStatusComponent";
 
 const PersonVerifier = ({ props }) => {
+  const diccionario = {
+    neutral: "Haz una expresión de neutralidad",
+    happiness: "Haz una expresión de felicidad",
+    surprise: "Haz una expresión de sorpresa",
+    left: "Voltea la cara a la izquierda",
+    right: "Voltea la cara a la derecha",
+    up: "Voltea la cara hacia arriba",
+    down: "Voltea la cara hacia abajo",
+  };
   const [verificatorStates, setVerificatorStates] = useState([
     "neutral",
     "happiness",
@@ -37,15 +46,15 @@ const PersonVerifier = ({ props }) => {
           buttonPressendOnce: buttonPressendOnce,
         }}
       />
-      <div className='container_messages'>
-        Haz lo siguiente con la cabeza: {verificatorStates[counterVerification]} y
-        presiona el botón!
+      <div className="container_messages">
+        Haz lo siguiente con la cabeza:{" "}
+        {diccionario[verificatorStates[counterVerification]]} y presiona el
+        botón!
       </div>
-      <br/>
-      <div className='container_messages'>
+      <br />
+      <div className="container_messages">
         Verificaciones restantes = {counterVerification}
       </div>
-      
     </React.Fragment>
   );
   console.log(props);
