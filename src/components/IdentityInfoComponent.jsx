@@ -15,11 +15,10 @@ const IdentityInfoComponent = ({ props }) => {
       </div>
     );
   }
-
   if (currentName == "") {
     return <div></div>;
   }
-  return <div>Hola {currentName}</div>;
+  return <div className='container_messages_green'>Hola {currentName}</div>;
 };
 
 export default IdentityInfoComponent;

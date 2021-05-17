@@ -102,7 +102,7 @@ const EmotionVerifier = ({ props }) => {
   }
 
   return (
-    <div>
+    <div className='container_messages_green'>
       Hola {currentName}
       <br></br> Haz lo siguiente para verificarte ! =
       {verificatorStates[counterVerification]}
