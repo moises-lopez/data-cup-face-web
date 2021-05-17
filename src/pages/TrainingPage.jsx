@@ -4,7 +4,10 @@ import {
   createGroupPerson,
   addPersonToGroupPerson,
   deleteGroupPerson,
+  olvidarGroupPerson,
 } from "../functions/faceRecognitionIdentifierHelper";
+import { Input } from "@material-ui/core";
+
 import TablePersons from "../components/TablePersons";
 import findPersonsInGroupInAzure from "../functions/facePersonGroupHelper";
 import InputField from "../components/InputField";
@@ -13,6 +16,10 @@ import SpinningCircle from "../components/SpinningCircle";
 
 import "../css/training.css";
 import "../css/homepage.css";
+const {
+  getFrameFromWebcam,
+  getImageFromWebCam,
+} = require("../functions/webcamHelper");
 
 const TrainingPage = () => {
   const [images, setImages] = useState([]);
@@ -56,6 +63,23 @@ const TrainingPage = () => {
     setCirle(false);
   };
 
+  const handleOlvidarCaras = async () => {
+    setCirle(true);
+    await olvidarGroupPerson();
+    setCirle(false);
+  };
+
+  const handleTakeFramWebCamToTrain = async () => {
+    setCirle(true);
+    const frameFromWebCam = await getFrameFromWebcam();
+    console.log(frameFromWebCam);
+    let imagesState = [...images];
+    imagesState.push(frameFromWebCam);
+    setImages(imagesState);
+    setImagenesSubidas(imagenesSubidas + 1);
+    setCirle(false);
+  };
+
   return (
     <div className="flex_training">
       {circle ? (
@@ -66,22 +90,29 @@ const TrainingPage = () => {
       ) : (
         <div className="empty_div" />
       )}
+      <button
+        className="face_button"
+        onClick={() => handleTakeFramWebCamToTrain()}
+      >
+        Tomar Foto Cámara Web
+      </button>
       <TextField
         label="Nombre Persona"
         value={nombrePersona}
         onChange={(e) => setNombrePersona(e.target.value)}
       ></TextField>
-      <TablePersons data={personsInGroup} />
-
+      <Button variant="contained" component="label">
+        Subir Imagen para entrenar
+        <input type="file" hidden onChange={(e) => onImageChange(e)} />
+      </Button>
       <p>Imágenes subidas = {imagenesSubidas}</p>
-      <input type="file" name="myImage" onChange={(e) => onImageChange(e)} />
 
       <ChainofButtons
         getPersonsInGroup={getPersonsInGroup}
         handleTraining={handleTraining}
-        handleCreateGroup={handleCreateGroup}
-        handleDeleteGroup={handleDeleteGroup}
+        handleOlvidarCaras={handleOlvidarCaras}
       />
+      <TablePersons data={personsInGroup} />
     </div>
   );
 };

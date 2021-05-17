@@ -20,6 +20,7 @@ function checkIfUserIsDoingEmotion(emotionsUser, emotionRequired) {
 }
 
 function checkIfUserIsDoingHeadPose(headPoseUser, headPoseRequired) {
+  console.log(headPoseUser, headPoseRequired);
   const minL = 20;
   const minR = -20;
   let final = false;
@@ -64,14 +65,12 @@ const isPersonDoingCorrectGesture = (
   propsEmpty,
   buttonPressendOnce
 ) => {
+  console.log("test", userGesture, requiredGesture, propsEmpty);
+
   if (propsEmpty) {
     return true;
   }
-  if (!buttonPressendOnce) {
-    return false;
-  }
 
-  console.log(userGesture, requiredGesture);
   const commonEmotions = ["neutral", "happiness", "surprise"];
   const commonHeadDirections = ["left", "right", "up", "down"];
   if (commonEmotions.includes(requiredGesture)) {
@@ -87,10 +86,36 @@ const isPersonDoingCorrectGesture = (
   }
 };
 
+const isSamePersonFunction = (
+  currentName,
+  myIdentifyInfo,
+  myPropsEmpty,
+  myFaceInfoFromFrame
+) => {
+  console.log(
+    "name: ",
+    currentName,
+    "identify:",
+    myIdentifyInfo,
+    "propsEmpty",
+    myPropsEmpty,
+    myFaceInfoFromFrame
+  );
+  if (myFaceInfoFromFrame != -1 && myIdentifyInfo == -1) {
+    return false;
+  }
+  if (currentName == "") {
+    return true;
+  }
+
+  return currentName == myIdentifyInfo.name;
+};
+
 module.exports = {
   getMaxEmotion,
   checkIfUserIsDoingEmotion,
   checkIfUserIsDoingHeadPose,
   isPropsEmpty,
   isPersonDoingCorrectGesture,
+  isSamePersonFunction,
 };

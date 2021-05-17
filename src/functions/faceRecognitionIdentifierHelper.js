@@ -174,9 +174,15 @@ async function identifyPerson(stream) {
   return personIdentified;
   console.log();
 }
+
+async function olvidarGroupPerson() {
+  await deleteGroupPerson();
+  await createGroupPerson();
+}
 module.exports = {
   createGroupPerson,
   addPersonToGroupPerson,
   identifyPerson,
   deleteGroupPerson,
+  olvidarGroupPerson,
 };

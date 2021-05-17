@@ -3,7 +3,11 @@ import { Button } from "@material-ui/core";
 import EmotionsTab from "../components/EmotionsTab";
 import EmotionVerifier from "../components/EmotionVerifier";
 import PersonVerifier from "../components/PersonVerifier";
-
+import {
+  isPropsEmpty,
+  isPersonDoingCorrectGesture,
+  isSamePersonFunction,
+} from "../functions/emotionsHelper";
 import { identifyPerson } from "../functions/faceRecognitionIdentifierHelper";
 
 import SpinningCircle from "../components/SpinningCircle";
@@ -19,31 +23,92 @@ const EmotionsPage = () => {
   const [circle, setCirle] = useState(false);
   const [identifyInfo, setIdentifyInfo] = useState(0);
   const [buttonPressendOnce, setButtonPressedOnce] = useState(false);
+  const [propsEmpty, setPropsEmpty] = useState(false);
+  const [personIsDoingCorrectGesture, setPersonIsDoingCorrectGesture] =
+    useState(false);
+  const [currentName, setCurrentName] = useState("");
+  const [isSamePerson, setIsSamePerson] = useState(true);
+  const [verificatorStates, setVerificatorStates] = useState([
+    "neutral",
+    "happiness",
+    "surprise",
+    "left",
+    "right",
+    "up",
+    "down",
+  ]);
+
+  let counterInitialState = 3;
+
+  let [counterVerification, setCounterVerification] =
+    useState(counterInitialState);
 
   const handleButtonCallApi = async () => {
     setCirle(true);
+    setIsSamePerson(true);
+    setButtonPressedOnce(true);
+
     const frameFromWebcam = await getFrameFromWebcam();
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
     const myIdentifyInfo = await identifyPerson(frameFromWebcam);
-    console.log("HOLA?", myIdentifyInfo, myFaceInfoFromFrame);
 
     axios.post("/api/face/save", myFaceInfoFromFrame);
 
-    // const myFaceInfoForPersonIdentifier = await getFaceInfoForPersonIdentifier(
-    //   frameFromWebcam
-    // );
-
     setFaceInfoFromFrame(myFaceInfoFromFrame);
     setIdentifyInfo(myIdentifyInfo);
+    console.log("IDENTITY", myIdentifyInfo);
+    const myPropsEmpty = isPropsEmpty(myFaceInfoFromFrame, myIdentifyInfo);
+    setPropsEmpty(myPropsEmpty);
 
-    //setFaceInfoFromFrame(myFaceInfoFromFrame);
+    const isSamePerson = isSamePersonFunction(
+      currentName,
+      myIdentifyInfo,
+      myPropsEmpty,
+      myFaceInfoFromFrame
+    );
 
-    // setIdentifyInfo(myIdentifyInfo);
+    if (!isSamePerson) {
+      setIsSamePerson(false);
+
+      return;
+    }
+    if (!isPropsEmpty) {
+      setCurrentName(identifyInfo.name);
+    }
+    const myPersonIsDoingCorrectGesture = isPersonDoingCorrectGesture(
+      myFaceInfoFromFrame,
+      verificatorStates[counterVerification],
+      myPropsEmpty,
+      true
+    );
+
+    setPersonIsDoingCorrectGesture(myPersonIsDoingCorrectGesture);
+
+    if (myPersonIsDoingCorrectGesture && !myPropsEmpty) {
+      setCounterVerification(counterVerification - 1);
+    }
+    console.log("IDENEITIPEasdRSON", identifyInfo);
 
     setCirle(false);
-    setButtonPressedOnce(true);
   };
+
+  if (counterVerification === 0) {
+    setTimeout(function () {
+      setCounterVerification(3);
+      setCurrentName("");
+    }, 2000);
+    return <div>Aprobado!</div>;
+  }
+
+  if (!isSamePerson) {
+    setTimeout(function () {
+      setIsSamePerson(true);
+      setCounterVerification(3);
+      setCurrentName("");
+    }, 2000);
+    return <div>Hubo Cambio de Persona!</div>;
+  }
 
   return (
     <React.Fragment>
@@ -61,8 +126,10 @@ const EmotionsPage = () => {
       </div>
       <PersonVerifier
         props={{
-          faceInfoFromFrame: faceInfoFromFrame,
           identifyInfo: identifyInfo,
+          personIsDoingCorrectGesture: personIsDoingCorrectGesture,
+          propsEmpty: propsEmpty,
+          counterVerification: counterVerification,
           buttonPressendOnce: buttonPressendOnce,
         }}
       />
