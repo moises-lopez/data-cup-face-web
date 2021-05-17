@@ -52,14 +52,12 @@ const EmotionsPage = () => {
     const myFaceInfoFromFrame = await getFaceInfoFromFrame(frameFromWebcam);
 
     const myIdentifyInfo = await identifyPerson(frameFromWebcam);
-    if (counterVerification === 3) {
-      setCurrentName("");
-    }
 
     // myFaceInfoFromFrame.name = myIdentifyInfo.name;
     // if (!myPropsEmpty) {
     //   axios.post("/api/face/save", myFaceInfoFromFrame);
     // }
+
     setFaceInfoFromFrame(myFaceInfoFromFrame);
     setIdentifyInfo(myIdentifyInfo);
     console.log("IDENTITY", myIdentifyInfo);
@@ -77,15 +75,18 @@ const EmotionsPage = () => {
       myPropsEmpty,
       myFaceInfoFromFrame
     );
-
+    if (!myPropsEmpty) {
+      console.log("changin name");
+      setCurrentName(myIdentifyInfo.name);
+    }
     if (!isSamePerson) {
       setIsSamePerson(false);
+      console.log("is not same person");
+      setCirle(false);
 
       return;
     }
-    if (!isPropsEmpty) {
-      setCurrentName(identifyInfo.name);
-    }
+
     const myPersonIsDoingCorrectGesture = isPersonDoingCorrectGesture(
       myFaceInfoFromFrame,
       verificatorStates[counterVerification],
@@ -107,8 +108,8 @@ const EmotionsPage = () => {
     setTimeout(function () {
       setCounterVerification(3);
       setCurrentName("");
-    }, 2000);
-    return <div className='container_messages_green'>Aprobado!</div>;
+    }, 5000);
+    return <div className="container_messages_green">Aprobado!</div>;
   }
 
   if (!isSamePerson) {
@@ -117,7 +118,11 @@ const EmotionsPage = () => {
       setCounterVerification(3);
       setCurrentName("");
     }, 2000);
-    return <div>Hubo Cambio de Persona!</div>;
+    return (
+      <div className="big_text container_messages_red">
+        Hubo Cambio de Persona!
+      </div>
+    );
   }
 
   return (
