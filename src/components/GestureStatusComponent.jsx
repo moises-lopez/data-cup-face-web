@@ -10,7 +10,7 @@ const GestureStatusComponent = ({ props }) => {
     console.log("no se debería mostrar porque lo estás haciendo bien pendejo");
     return <div></div>;
   }
-  return <div>No pudimos identificar la acción, inténtalo de nuevo</div>;
+  return <div className='container_messages_red'>No pudimos identificar la acción, inténtalo de nuevo</div>;
 };
 
 export default GestureStatusComponent;

@@ -63,7 +63,7 @@ const EmotionVerifier = ({ props }) => {
       setCurrentName("");
       setCounterVerification(3);
     }, 5000);
-    return <div>Aprobado!</div>;
+    return <div className='container_messages_green'>Aprobado!</div>;
   }
 
   if (commonEmotions.includes(verificatorStates[counterVerification])) {
@@ -75,7 +75,7 @@ const EmotionVerifier = ({ props }) => {
       setCounterVerification(counterVerification - 1);
     } else {
       return (
-        <div>
+        <div className='container_messages_red'>
           {identifyInfo && identifyInfo.name}
           No pudimos intentar la verificación, inténtalo de nuevo! <br></br> Haz
           lo siguiente para verificarte !:

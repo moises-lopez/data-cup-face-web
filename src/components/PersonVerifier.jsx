@@ -37,9 +37,15 @@ const PersonVerifier = ({ props }) => {
           buttonPressendOnce: buttonPressendOnce,
         }}
       />
-      Haz lo siguiente con la cabeza: {verificatorStates[counterVerification]} y
-      presiona el botón!
-      <br></br>Verificaciones restantes = {counterVerification}
+      <div className='container_messages'>
+        Haz lo siguiente con la cabeza: {verificatorStates[counterVerification]} y
+        presiona el botón!
+      </div>
+      <br/>
+      <div className='container_messages'>
+        Verificaciones restantes = {counterVerification}
+      </div>
+      
     </React.Fragment>
   );
   console.log(props);
