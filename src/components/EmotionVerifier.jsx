@@ -63,7 +63,7 @@ const EmotionVerifier = ({ props }) => {
       setCurrentName("");
       setCounterVerification(3);
     }, 5000);
-    return <div>Aprobado!</div>;
+    return <div className='container_messages_green'>Aprobado!</div>;
   }
 
   if (commonEmotions.includes(verificatorStates[counterVerification])) {
