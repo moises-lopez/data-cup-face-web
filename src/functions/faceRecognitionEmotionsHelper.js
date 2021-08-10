@@ -1,5 +1,5 @@
-const key = "b900d6028af8412dac48b5f16f7d7c2b";
-const endpoint = "https://instanciaface.cognitiveservices.azure.com/";
+const key = "75948cd73b0b442a959b2e9b683fff1f";
+const endpoint = "https://testingfaceapi2.cognitiveservices.azure.com/";
 
 const msRest = require("@azure/ms-rest-js");
 const Face = require("@azure/cognitiveservices-face");
